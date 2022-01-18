@@ -30,10 +30,10 @@ public class SsfConfiguration {
     @Bean
     public JedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-        configuration.setDatabase(database);
-        configuration.setPassword(password);
-        configuration.setPort(port);
-        configuration.setHostName(host);
+//        configuration.setDatabase(database);
+//        configuration.setPassword(password);
+//        configuration.setPort(port);
+//        configuration.setHostName(host);
 //        final JedisClientConfiguration jedisConfig = JedisClientConfiguration.builder().build();
 //        final JedisConnectionFactory jedisFac = new JedisConnectionFactory(configuration, jedisConfig);
 //        jedisFac.afterPropertiesSet();
