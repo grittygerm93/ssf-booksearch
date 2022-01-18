@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Details</h1>
+
+    <div class="row mb-3">
+        <h1 th:text="${item.title}"></h1>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <img th:src="@{${item.icon}}" alt="" class="img-thumbnail">
+        </div>
+        <div class="col-8">
+            <table class="table table-dark table-striped table-bordered">
+                <tr scope="row">
+                    <td>Description:</td>
+                    <td th:unless="${item.description.length() == 0}" th:text="${item.description}"></td>
+                    <td th:if="${item.description.length() == 0}">no description available</td>
+                </tr>
+                <tr scope="row">
+                    <td>Excerpt:</td>
+                    <td th:unless="${item.excerpt.length() == 0}" th:text="${item.excerpt}"></td>
+                    <td th:if="${item.excerpt.length() == 0}">no excerpt available</td>
+                </tr>
+                <tr scope="row">
+                    <td>Cached:</td>
+                    <td th:if="${item.wasCached == true}">true</td>
+                    <td th:unless="${item.wasCached == true}">false</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <a href="/main">Back</a>
+</div>
+
+</body>
+</html>

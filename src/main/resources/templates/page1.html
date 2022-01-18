@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1></h1>
+
+
+<!--form with text input-->
+    <form action="#" method="post" th:action="@{}" class="card p-3 mb-5">
+        <div class="input-group mb-3">
+            <span class="input-group-text"></span>
+            <input type="text" required th:name="" id="character" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text"></span>
+            <input type="text" required th:name="" id="qty" class="form-control">
+        </div>
+
+
+<!--select input for form-->
+        <div class="input-group mb-3">
+            <span class="input-group-text">From:</span>
+            <select name="from" id="from" class="form-select">
+                <option th:each="currency : ${currencyList}"
+                        th:text="${currency.currencyDisplay}" th:value="${currency.currencyID}"></option>
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-outline-dark"></button>
+<!--2 buttons in a form-->
+        <button type="submit" class="btn btn-primary" name="action" value="create">create!</button>
+        <button type="submit" class="btn btn-secondary" name="action" value="update">update!</button>
+    </form>
+
+
+<!--form with binding-->
+    <form method="post" th:action="@{/pojo1/}" th:object="${pojo1}" class="col card p-3 mb-5">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input id="firstName" placeholder="Enter First Name" required type="text" th:field="*{firstName}"
+                   class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" placeholder="Enter Last Name" required type="text" th:field="*{lastName}"
+                   class="form-control"/>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Create User">
+    </form>
+
+
+
+<!--table example with image inline-->
+    <div th:each="item:${list}">
+        <div class="row">
+            <h1 th:text="*{item.cityName}"></h1>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <img th:src="@{*{item.icon}}" alt="" class="img-thumbnail">
+            </div>
+            <div class="col-8">
+                <table class="table table-dark table-striped table-bordered">
+                    <tr scope="row">
+                        <td th:text="*{item.main + ', ' + item.description}"></td>
+                    </tr>
+                    <tr scope="row">
+                        <td th:text="*{item.temp}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<!--another table example -->
+    <table class="table table-dark table-striped table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Created At</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(users)}">
+            <td colspan="5">No Records found. Add some...!</td>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.createdate}"></td>
+            <td><a href="'/' + ${user.id}"></a></td>
+        </tr>
+    </table>
+
+    <div th:if="${userMessage}" th:utext="${userMessage}"></div>
+
+<!--showing items conditionally-->
+    <p th:if="${information != null}" th:text="${information}"></p>
+
+</div>
+
+</body>
+</html>

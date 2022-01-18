@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="wwww.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${'Search result for ' + title}"></h1>
+    <table class="table table-dark table-striped table-bordered">
+        <tr th:each="book : ${list}">
+            <td><a th:href="@{/book{id}(id=${book.key})}" th:text="${book.title}"></a></td>
+        </tr>
+    </table>
+
+    <p th:if="${errormsg != null}" th:text="${errormsg}"></p>
+
+    <a href="/">Back</a>
+</div>
+</body>
+</html>
