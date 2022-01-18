@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-    <h1 th:text="${'Search result for ' + title}"></h1>
+    <h1>Search result for <code th:text="${title}"></code></h1>
     <table class="table table-dark table-striped table-bordered">
         <tr th:each="book : ${list}">
             <td><a th:href="@{/book{id}(id=${book.key})}" th:text="${book.title}"></a></td>
