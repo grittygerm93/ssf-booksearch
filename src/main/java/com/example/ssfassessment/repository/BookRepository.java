@@ -46,11 +46,6 @@ public class BookRepository {
         return Optional.empty();
     }
 
-//    public String update(String id, String body) {
-//        template.opsForValue().set(id, body, 10L, TimeUnit.MINUTES);
-//        return id;
-//    }
-
     private String normalize(String k) {
         return k.trim().toLowerCase();
     }

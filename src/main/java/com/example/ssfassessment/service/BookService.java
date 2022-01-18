@@ -16,7 +16,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,56 +38,6 @@ public class BookService {
     public BookService(BookRepository repo, RestTemplate restTemplate) {
         this.repo = repo;
         this.restTemplate = restTemplate;
-    }
-
-    public JsonArray save(String body) {
-//        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-
-        try (InputStream is = new ByteArrayInputStream(body.getBytes())) {
-            JsonReader reader = Json.createReader(is);
-            JsonArray data = reader.readArray();
-
-            /*data.stream()
-                    .map(e -> e.asJsonObject().getString("game"))
-                    .forEach(e -> arrayBuilder.add(repo.save(e)));*/
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        return arrayBuilder.build();
-        return null;
-    }
-
-    public Optional<JsonObject> get(String id) {
-//        String item = repo.get(id);
-//        if (item == null) {
-//            return Optional.empty();
-//        }
- /*       JsonObject jsonObject = Json.createObjectBuilder()
-                .add("item", item)
-                .build();*/
-//        return Optional.ofNullable(jsonObject);
-        return null;
-    }
-
-    public JsonObject update(String id, String body) {
-
-        JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-
-        try (InputStream is = new ByteArrayInputStream(body.getBytes())) {
-            JsonReader reader = Json.createReader(is);
-            JsonObject data = reader.readObject();
-
-            /*String gameVal = data.getString("game");
-
-            jsonObjectBuilder.add("update count", 1)
-                    .add("id", repo.update(id, gameVal));*/
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        return jsonObjectBuilder.build();
-        return null;
     }
 
     public List<Book> search(String title) {
@@ -108,7 +61,6 @@ public class BookService {
                     .map(Book::create)
                     .collect(Collectors.toList());
             logger.info("the size of the list is {}", BookList.size());
-//            repository.save(country, weatherList);
             return BookList;
         }
         catch (IOException e) {
@@ -162,8 +114,6 @@ public class BookService {
                 }
             }
 
-//            Book(String title, String description, String excerpt, String icon)
-//            https://covers.openlibrary.org/b/id/10222599-M.jpg
             Book book = new Book(title, description, excerpt,
                     "https://covers.openlibrary.org/b/id/%s-M.jpg".formatted(icon));
 
@@ -178,60 +128,4 @@ public class BookService {
         return new Book();
 
     }
-
-//    resttemplate boilerplate
-/*    public List<Weather> getInfoFromApi(String country) {
-        Optional<List<Weather>> optList = repository.getFromCache(country);
-        if(optList.isPresent()) {
-            return optList.get();
-        }
-
-        String url2 = UriComponentsBuilder
-                .fromUriString(url1)
-                .queryParam("q", city.trim().replace(" ", "+"))
-                .queryParam("appid", apiKey)
-                .queryParam("mode", "metric")
-                .toUriString();
-
-        RequestEntity req = RequestEntity.get(url2).accept(MediaType.APPLICATION_JSON).build();
-
-        MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
-        form.add(“name”, “fred”);
-        form.add(“email”, “fred@gmail.com”);
-        RequestEntity<MultiValueMap<String, String>> req = RequestEntity
-        .post(url)
-        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-        .headers(“Accept”, MediaType.APPLICATION_JSON)
-        .body(form, MultiValueMap<String, String>.class)
-
-        ResponseEntity<String> resp = restTemplate.exchange(req, String.class);
-
-
-        try (InputStream is = new ByteArrayInputStream(resp.getBody().getBytes())) {
-            JsonReader reader = Json.createReader(is);
-            JsonObject data = reader.readObject();
-
-            JsonArray weather = data.getJsonArray("weather");
-            String cityName = data.getString("name");
-            double temp = data.getJsonObject("main").getJsonNumber("temp").doubleValue();
-            List<Weather> weatherList = weather.stream()
-                    .map(e -> (JsonObject)e)
-                    .map(Weather::create)
-                    .map(e -> {
-                        e.setCityName(cityName);
-                        e.setTemp(temp);
-                        return e;
-                    })
-                    .collect(Collectors.toList());
-            repository.save(country, weatherList);
-            return weatherList;
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Collections.EMPTY_LIST;
-    }*/
-
-
 }

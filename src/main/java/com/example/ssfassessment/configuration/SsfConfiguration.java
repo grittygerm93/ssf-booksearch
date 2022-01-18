@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -31,10 +30,10 @@ public class SsfConfiguration {
     @Bean
     public JedisConnectionFactory connectionFactory() {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
-//        configuration.setDatabase(database);
-//        configuration.setPassword(password);
-//        configuration.setPort(port);
-//        configuration.setHostName(host);
+        configuration.setDatabase(database);
+        configuration.setPassword(password);
+        configuration.setPort(port);
+        configuration.setHostName(host);
 //        final JedisClientConfiguration jedisConfig = JedisClientConfiguration.builder().build();
 //        final JedisConnectionFactory jedisFac = new JedisConnectionFactory(configuration, jedisConfig);
 //        jedisFac.afterPropertiesSet();
